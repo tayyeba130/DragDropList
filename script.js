@@ -21,16 +21,20 @@ let dragStartIndex;
 createList();
 
 function createList() {
-    [...richestPeople].forEach((person, index) => {
-        const listItem = document.createElement('li');
-        listItem.setAttribute('data-index', index);
-        listItem.innerHTML = `
-            <span className="number">${index + 1}</span>
-            <div className="draggable" draggable="true">
-                <p className="person-name">${person}</p>
-                <i className="fas fa-grip-lines"></i>
-            </div>
-        `;
+    [...richestPeople]
+        .map(a => ({value: a, sort: Math.random()}))
+        .sort((a, b) => a.sort - b.sort)
+        .map(a => a.value)
+        .forEach((person, index) => {
+            const listItem = document.createElement('li');
+            listItem.setAttribute('data-index', index);
+            listItem.innerHTML = `
+                <span className="number">${index + 1}</span>
+                <div className="draggable" draggable="true">
+                    <p className="person-name">${person}</p>
+                    <i className="fas fa-grip-lines"></i>
+                </div>
+            `;
 
         listItems.push(listItem);
         draggable_list.appendChild(listItem);
